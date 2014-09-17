@@ -1,3 +1,5 @@
+// www.electroingenio.com
+
 #define SOUND_SPD 344
 volatile long t_inicio;
 volatile long t_fin;
