@@ -1,0 +1,31 @@
+// www.electroingenio.com, 
+
+const int analogOutPin = 9; // Analog output pin to PWM control
+int outputValue = 0;        // value output to the PWM (analog out)
+String readString;
+
+void setup() {
+  // initialize serial communications at 9600 bps:
+  Serial.begin(9600); 
+}
+
+void loop() {
+  
+  
+  while (Serial.available()) { //Se verifica la disponibilidad del puero serial 
+    delay(3);                  // a traves de un loop
+    char c = Serial.read();  // Se leen los caracteres que ingresan por el puerto
+    readString += c;         //se acumulan cada uno de los caracteres en readString
+    outputValue = map(readString.toInt(), 0, 1023, 0, 255); 
+  }
+  if (readString.length() >0) { //Se verifica que la variable contenga informacion
+    Serial.println(readString.toInt());  //se envia lo que tenga la variable
+    analogWrite(analogOutPin,outputValue ); 
+    readString=""; // Se limpia la variable 
+  } 
+         
+   // wait 2 milliseconds before the next loop
+  // for the analog-to-digital converter to settle
+  // after the last reading:
+  delay(2);                     
+}
